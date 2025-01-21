@@ -23,10 +23,12 @@ def show_specific_task(request, id):
 
     return HttpResponse(f"This is specific task space {id}")
 
+def dashboard(request, id):
+    return HttpResponse("This is dashbord")
+
+
 def show_admin(request):
     return HttpResponse("This is admin")
 
 
-def dashboard(request, id):
-    return HttpResponse("This is dashbord")
 
