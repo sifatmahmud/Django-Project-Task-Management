@@ -1,7 +1,9 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from tasks.forms import TaskForm, TaskModelForm
-from tasks.models import Employee, Task
+from tasks.models import Employee, Task, TaskDetail, Project
+from datetime import date
+from django.db.models import Q
 
 # Create your views here.
 
@@ -36,12 +38,15 @@ def create_task(request):
 
 
 def view_task(request):
-    # retrive all data from tasks model
-    tasks = Task.objects.all()
+    # Select_related (ForeignKey, OneToOneField)
+    # tasks = Task.objects.select_related('details').all()
+    # tasks = TaskDetail.objects.select_related('task').all()
+    # tasks = Task.objects.select_related('project').all()
+    
+    
+    """ prefetch_related(reverse Foreignkey, manatomany)"""
+    # tasks = Project.objects.prefetch_related('task_set').all()
+    # tasks = Project.objects.all()
 
-    #retrive a specific task
-    task_3 = Task.objects.get(pk=1)
-
-    # Fetch the first task
-    first_task = Task.objects.first()
-    return render(request, "show_task.html", {"tasks":tasks, "task3":task_3, "first_task":first_task})
+    tasks = Task.objects.prefetch_related("assigned_to").all()
+    return render(request, "show_task.html", {"tasks":tasks})
