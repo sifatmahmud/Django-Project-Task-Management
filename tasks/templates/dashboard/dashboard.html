@@ -43,6 +43,7 @@
             {% comment %} Stats Grid  {% endcomment %}
             <div class="grid lg:grid-cols-4 md:grid-cols-2 sm:grid-cols-1 gap-6 mb-8 ">
                 <!-- Total Task -->
+                <a href="{% url 'manager-dashboard' %}">
                 <div class="bg-white rounded-xl p-6 shadow-sm">
                     <h3 class="text-sm font-medium text-gray-500 mb-4">TOTAL TASK</h3>
                     <div class="flex justify-between items-start">
@@ -59,8 +60,10 @@
                         </div>
                     </div>
                 </div>
+                </a>
 
                 <!-- Completed Task -->
+                <a href="{% url 'manager-dashboard' %}?type=completed">
                 <div class="bg-white rounded-xl p-6 shadow-sm">
                     <h3 class="text-sm font-medium text-gray-500 mb-4">COMPLETED TASK</h3>
                     <div class="flex justify-between items-start">
@@ -78,8 +81,9 @@
                         </div>
                     </div>
                 </div>
-
+                </a>
                 <!-- Task in Progress -->
+                <a href="{% url 'manager-dashboard' %}?type=in-progress">
                 <div class="bg-white rounded-xl p-6 shadow-sm">
                     <h3 class="text-sm font-medium text-gray-500 mb-4">TASK IN PROGRESS</h3>
                     <div class="flex justify-between items-start">
@@ -97,8 +101,10 @@
                         </div>
                     </div>
                 </div>
+                </a>
 
                 <!-- ToDos -->
+                <a href="{% url 'manager-dashboard' %}?type=pending">
                 <div class="bg-white rounded-xl p-6 shadow-sm">
                     <h3 class="text-sm font-medium text-gray-500 mb-4">TODOS</h3>
                     <div class="flex justify-between items-start">
@@ -115,6 +121,7 @@
                         </div>
                     </div>
                 </div>
+                </a>
             </div>
 
             {% block tasks %}
