@@ -1,9 +1,10 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
-from tasks.forms import TaskForm, TaskModelForm
+from tasks.forms import TaskForm, TaskModelForm, TaskDetailModelForm
 from tasks.models import Employee, Task, TaskDetail, Project
 from datetime import date
 from django.db.models import Q, Count, Max, Min, Avg
+from django.contrib import messages
 
 # Create your views here.
 
@@ -51,17 +52,25 @@ def test(request):
 
 def create_task(request):
     # employees = Employee.objects.all()
-    form = TaskModelForm() # For GET
+
+    task_form = TaskModelForm() # For GET
+    task_detail_form = TaskDetailModelForm()
 
     if request.method == "POST":
-        form = TaskModelForm(request.POST)
-        if form.is_valid():
+        task_form = TaskModelForm(request.POST) # For GET
+        task_detail_form = TaskDetailModelForm(request.POST)
+
+        if task_form.is_valid() and task_detail_form.is_valid():
             ''' For Model Form Data '''
-            form.save()
+            task = task_form.save()
+            task_detail = task_detail_form.save(commit=False)
+            task_detail.task = task
+            task_detail.save()
 
-            return render(request, 'task_form.html', {"form":form, "message": "task added successfully"})
+            messages.success(request, "Task Created Successfully")
+            return redirect('create-task')
 
-    context = {"form": form}
+    context = {"task_form":task_form, "task_detail_form":task_detail_form}
     return render(request, "task_form.html", context)
 
 

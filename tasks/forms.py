@@ -1,5 +1,5 @@
 from django import forms
-from tasks.models import Task
+from tasks.models import Task, TaskDetail
 
 # Django Form
 class TaskForm(forms.Form):
@@ -15,11 +15,6 @@ class TaskForm(forms.Form):
         self.fields["assigned_to"].choices = [(emp.id, emp.name) for emp in employees]
 
 class StyleFormMixin:
-        
-    """ --------- Using Mixing Widget ----------- """
-    def __init__(self, *arg, **kwargs):
-        super().__init__(*arg, **kwargs)
-        self.apply_styled_widgets()
 
     """Mixing to apply style to form field"""
 
@@ -45,11 +40,11 @@ class StyleFormMixin:
                 field.widget.attrs.update({
                     'class': "space-y-2"
                 })
-            # else:
-            #     print("Inside else")
-            #     field.widget.attrs.update({
-            #         'class': self.default_classes
-            #     })
+            else:
+                print("Inside else")
+                field.widget.attrs.update({
+                    'class': self.default_classes
+                })
 
 
 
@@ -64,3 +59,18 @@ class TaskModelForm(StyleFormMixin, forms.ModelForm):
             'due_date': forms.SelectDateWidget,
             'assigned_to': forms.CheckboxSelectMultiple
         }
+    """ --------- Using Mixing Widget ----------- """
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.apply_styled_widgets()
+
+
+class TaskDetailModelForm(StyleFormMixin, forms.ModelForm):
+    class Meta:
+        model = TaskDetail
+        fields = ['priority', 'notes']
+    
+    """ --------- Using Mixing Widget ----------- """
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.apply_styled_widgets()
