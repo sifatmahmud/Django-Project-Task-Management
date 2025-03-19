@@ -86,24 +86,24 @@ WSGI_APPLICATION = 'task_management.wsgi.application'
 # }
 
 # For PostgreSQL
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'task_management',
-#         'USER': 'postgres',
-#         'PASSWORD': '1122',
-#         'HOST': '',
-#         'PORT': '5432'
-#     }
-# }
-
-
 DATABASES = {
-    'default': dj_database_url.config(
-        default='postgresql://task_management_db_cgjc_user:UFyxy2JlPNZ0CQUMkdtrY2YSPdsXOFfW@dpg-cup46opu0jms73bjq2ag-a.oregon-postgres.render.com/task_management_db_cgjc',
-        conn_max_age=600
-    )
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'task_management',
+        'USER': 'postgres',
+        'PASSWORD': '1122',
+        'HOST': '',
+        'PORT': '5432'
+    }
 }
+
+
+# DATABASES = {
+#     'default': dj_database_url.config(
+#         default='postgresql://task_management_db_cgjc_user:UFyxy2JlPNZ0CQUMkdtrY2YSPdsXOFfW@dpg-cup46opu0jms73bjq2ag-a.oregon-postgres.render.com/task_management_db_cgjc',
+#         conn_max_age=600
+#     )
+# }
 
 
 
