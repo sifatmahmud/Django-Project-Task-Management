@@ -58,3 +58,23 @@ def activate_user(request, user_id, token):
             return HttpResponse('Invalid id or token')
     except User.DoesNotExist:
         return HttpResponse('User not fount')
+
+
+
+def admin_dashboard(request):
+    return render(request, 'admin/dashboard.html')
+
+
+"""
+Admin
+    - shobkisu
+Manager
+    -project
+    -task create
+Employee
+    - Task read
+    - Task update
+    - 
+
+
+"""
