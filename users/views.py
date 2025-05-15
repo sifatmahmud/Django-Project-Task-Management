@@ -18,13 +18,12 @@ def sign_up(request):
         form = CustomRegistrationForm(request.POST)
         if form.is_valid():
             user = form.save(commit=False)
-            print('user', user)
             user.set_password(form.cleaned_data.get('password1'))
-            print(form.cleaned_data)
             user.is_active = False
             user.save()
             messages.success(request, 'A Confirmation mail sent. Please check your email')
             return redirect('sign-in')
+
         else:
             print("Form is not valid")
     return render(request, 'registration/register.html', {"form": form})
@@ -75,12 +74,12 @@ def assign_role(request, user_id):
         form = AssignRoleForm(request.POST)
         if form.is_valid():
             role = form.cleaned_data.get('role')
-            user.groups.clear() # Remove old roles
+            user.groups.clear()  # Remove old roles
             user.groups.add(role)
-            messages.success(request, f"{user.username} has been assigned to the {role.name} role")
-            return redirect('admin_dashboard')
-    
-    return render(request, 'admin/assigned_role.html', {"form":form})
+            messages.success(request, f"User {user.username} has been assigned to the {role.name} role")
+            return redirect('admin-dashboard')
+
+    return render(request, 'admin/assign_role.html', {"form": form})
 
 
 def create_group(request):
