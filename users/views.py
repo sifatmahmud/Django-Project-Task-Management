@@ -52,7 +52,7 @@ def activate_user(request, user_id, token):
         if default_token_generator.check_token(user, token):
             user.is_active = True
             user.save()
-            return redirect('sign_in')
+            return redirect('sign-in')
         else:
             return HttpResponse('Invalid id or token')
     except User.DoesNotExist:
@@ -77,7 +77,7 @@ def assign_role(request, user_id):
             user.groups.clear()  # Remove old roles
             user.groups.add(role)
             messages.success(request, f"User {user.username} has been assigned to the {role.name} role")
-            return redirect('admin-dashboard')
+            return redirect('admin_dashboard')
 
     return render(request, 'admin/assign_role.html', {"form": form})
 
